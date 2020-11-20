@@ -4,11 +4,17 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<title>reveal.js</title>
+		<title>CSS POAA</title>
+		<link rel="shortcut icon" href="http://localhost:8080/favicon.ico">
 
 		<link rel="stylesheet" href="dist/reset.css">
 		<link rel="stylesheet" href="dist/reveal.css">
-		<link rel="stylesheet" href="dist/theme/black.css" id="theme">
+		<link rel="stylesheet" href="dist/theme/serif.css" id="theme">
+		<style>
+			body::-webkit-scrollbar {
+					width: 0;
+			}
+		</style>
 
 		<!-- Theme used for syntax highlighted code -->
 		<link rel="stylesheet" href="plugin/highlight/monokai.css" id="highlight-theme">
@@ -16,8 +22,208 @@
 	<body>
 		<div class="reveal">
 			<div class="slides">
-				<section>Slide 1</section>
-				<section>Slide 2</section>
+
+				<!-- 引言 -->
+				<section>
+					<h1>CSS POAA</h2>
+					<h4>CSS 抗锯齿解决方案</h4></h4></h4>
+					<p>
+						<small>Created by <a href="https://github.com/Lionad-Morotar">Lionad-Guirotar</a> and <a href="https://baike.baidu.com/item/%E9%98%BF%E5%85%B0%E8%B4%9D%E5%B0%94/937907?fr=aladdin">Alanber</a></small>
+					</p>
+				</section>
+
+				<!-- 简单介绍 CSS -->
+				<section data-background-iframe="https://www.baidu.com/s?wd=水箱" data-background-interactive>
+					<div style="position: absolute; width: 40%; right: 0; box-shadow: 0 1px 4px rgba(0,0,0,0.3), 0 5px 25px rgba(0,0,0,0.2); background-color: rgba(0, 0, 0, 0.71); color: #fff; padding: 20px; font-size: 20px; text-align: left;">
+						<h2 style="color: #fff">CSS Boxes</h2>
+						<p>页面是由方盒子组成的</p>
+						<p>CSS 主要用来控制盒子的样式和布局</button></p>
+						<pre style="display: none">
+							$$('*').map(x => (x.style.border = '1px solid'))
+						</pre>
+					</div>
+				</section>
+
+				<!-- CSS 还能做什么 -->
+				<section>
+					<h2>What else can <em>CSS</em> do ?</h2>
+				</section>
+
+				<!-- 排版 -->
+				<section data-background-iframe="http://localhost:8081/blueprint" data-background-interactive></section>
+
+				<!-- 做交互 -->
+				<section data-background-iframe="https://elrumordelaluz.github.io/csshake#variations" data-background-interactive ></section>
+
+				<!-- 写动画 -->
+				<section data-background-iframe="http://localhost:8081/accordion" data-background-interactive ></section>
+
+				<!-- 绘画 -->
+				<section data-background-iframe="http://localhost:8081/landscape" data-background-interactive ></section>
+
+				<!-- 绘画2 -->
+				<section data-background-iframe="http://localhost:8081/artdraw" data-background-interactive ></section>
+
+				<!-- 建模 -->
+				<section data-background-iframe="http://localhost:8081/aritecture" data-background-interactive ></section>				
+
+				<!-- CSS 还能做什么 -->
+				<section>
+					<section>
+						<h2>How to anti-aliasing ?</h2>
+					</section>
+					<section>
+						<h2>Do not <del>use CSS</del> !</h2>
+					</section>
+				</section>
+
+				<!-- 画一条直线 -->
+				<section data-background-iframe="http://bert.stuy.edu/pbrooks/graphics/demos/BresenhamDemo.htm" data-background-interactive ></section>
+
+				<!-- POAA -->
+				<section>
+					<section>
+						<h2>CSS POAA</h2>
+						<p class="fragment">Pixel Offsset Anti-Aliasing</p>
+						<p class="fragment">像素偏移抗锯齿</sp>
+					</section>
+				</section>
+
+				<!-- 断裂方向 -->
+				<section data-background-iframe="https://marc-roig.github.io/Bresenham_Visualization/Bresenham2D/" data-background-interactive ></section>
+
+				<!-- 实际图案举例 -->
+				<section>
+					<img src="https://cdn.jsdelivr.net/gh/Lionad-Morotar/blog-cdn/image/200604/AntiAliasingLine.gif" alt="reveal.js logo" style="margin: auto; width: 70vw; image-rendering: pixelated;">
+				</section>
+
+				<!-- 实际 CSS 绘制 -->
+				<section>
+					<h3>应用步骤</h3></h3>
+					<section>
+						<p>先画几条黄蓝红相间的线条</p>
+						<pre><code class="hlscss" data-trim data-line-numbers="|2-4|7|7-17">
+.repeat-con {
+    --c1: #cd3f4f; 
+    --c2: #e6a964;
+    --c3: #5996cc;
+    position: relative;
+    height: 300px;
+    background-image: repeating-linear-gradient(
+        var(--deg),
+        var(--c1),
+        var(--c1) 10px,
+        var(--c2) 10px,
+        var(--c2) 40px,
+        var(--c1) 40px,
+        var(--c1) 50px,
+        var(--c3) 50px,
+        var(--c3) 80px
+    );
+}
+						</code></pre>
+					</section>
+					<section>
+						<img src="https://cdn.jsdelivr.net/gh/Lionad-Morotar/blog-cdn/image/other/20201120144932.png" alt="reveal.js logo" style="margin: auto; width: 70vw; image-rendering: pixelated;">
+					</section>
+					<section>
+						<h4>1. Find<span class="fragment"> out lines</span></h4>
+						<pre><code class="hlscss" data-trim>
+&.antialiasing {
+  background-image: repeating-linear-gradient(
+    /* ... */
+  );
+}
+							</code></pre>
+						</section>
+						<section>
+							<h4>1. Find out lines (simulated)</h4>
+							<pre><code class="hlscss" data-trim data-line-numbers="2">
+&.antialiasing {
+  background-image: repeating-linear-gradient(
+      var(--deg),
+      var(--c3),
+      transparent calc(0px + 1px),
+      transparent calc(10px - 1px),
+      var(--c2) 10px,
+      var(--c1) 10px,
+      transparent calc(10px + 1px),
+      transparent calc(40px - 1px),
+      var(--c1) 40px,
+      var(--c2) 40px,
+      transparent calc(40px + 1px),
+      transparent calc(50px - 1px),
+      var(--c3) 50px,
+      var(--c1) 50px,
+      transparent calc(50px + 1px),
+      transparent calc(80px - 1px),
+      var(--c1) 80px
+  );
+}
+						</code></pre>
+					</section>
+					<section>
+							<h4>2. Draw lines</h4>
+							<pre><code class="hlscss" data-trim data-line-numbers="4-7">
+&.antialiasing {
+  background-image: repeating-linear-gradient(
+      var(--deg),
+      var(--c3),
+      transparent calc(0px + 1px),
+      transparent calc(10px - 1px),
+      var(--c2) 10px,
+      var(--c1) 10px,
+      transparent calc(10px + 1px),
+      transparent calc(40px - 1px),
+      var(--c1) 40px,
+      var(--c2) 40px,
+      transparent calc(40px + 1px),
+      transparent calc(50px - 1px),
+      var(--c3) 50px,
+      var(--c1) 50px,
+      transparent calc(50px + 1px),
+      transparent calc(80px - 1px),
+      var(--c1) 80px
+  );
+}
+						</code></pre>
+					</section>
+					<section>
+							<h4>3. Override</h4>
+							<pre><code class="hlscss" data-trim data-line-numbers="4-5">
+&.antialiasing {
+  background-image: repeating-linear-gradient(
+      var(--deg),
+      var(--c3),
+      transparent calc(0px + 1px),
+      transparent calc(10px - 1px),
+      var(--c2) 10px,
+      var(--c1) 10px,
+      transparent calc(10px + 1px),
+      transparent calc(40px - 1px),
+      var(--c1) 40px,
+      var(--c2) 40px,
+      transparent calc(40px + 1px),
+      transparent calc(50px - 1px),
+      var(--c3) 50px,
+      var(--c1) 50px,
+      transparent calc(50px + 1px),
+      transparent calc(80px - 1px),
+      var(--c1) 80px
+  );
+}
+						</code></pre>
+					</section>
+					<section>
+						<img src="https://cdn.jsdelivr.net/gh/Lionad-Morotar/blog-cdn/image/200604/POAA-2.gif" alt="reveal.js logo" style="margin: auto; width: 70vw; image-rendering: pixelated;">
+					</section>
+				</section>
+
+				<section>
+					<h2>New technology</h2>
+					<p><span class="fragment">Canvas... </span><span class="fragment">SVG... </span><span class="fragment">CSS Houdini</span></p>
+				</section>
+
 			</div>
 		</div>
 
@@ -26,15 +232,10 @@
 		<script src="plugin/markdown/markdown.js"></script>
 		<script src="plugin/highlight/highlight.js"></script>
 		<script>
-			// More info about initialization & config:
-			// - https://revealjs.com/initialization/
-			// - https://revealjs.com/config/
 			Reveal.initialize({
 				hash: true,
-
-				// Learn about plugins: https://revealjs.com/plugins/
 				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
-			});
+			})
 		</script>
 	</body>
 </html>
